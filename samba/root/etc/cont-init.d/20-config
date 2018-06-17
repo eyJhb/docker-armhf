@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+#create folders
+mkdir -p \
+    /var/{cache,log}/samba
+
+# copy config
+[[ ! -f /config/smb.conf ]] && cp \
+	/defaults/smb.conf /config/smb.conf
+
+# permissions
+chown abc:abc \
+	/config/smb.conf \
+	/var/{cache,log}/samba
