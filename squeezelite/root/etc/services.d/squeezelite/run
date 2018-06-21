@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+#s6-setuidgid abc squeezelite -o \"$SOUNDDEVICE\" -s $SERVER -n $CLIENTNAME -m $CLIENTMAC
+#echo s6-setuidgid abc squeezelite -o "$SOUNDDEVICE" -s $SERVER -n $CLIENTNAME -m $CLIENTMAC
+
+exec \
+	squeezelite -o $SOUNDDEVICE -s $SERVER -n $CLIENTNAME -m $CLIENTMAC
