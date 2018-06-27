@@ -1,5 +1,4 @@
-#from eyjhb/alpine-base:armhf
-from baseimage
+from eyjhb/alpine-base-armhf:3.7
 
 # install packages
 RUN \

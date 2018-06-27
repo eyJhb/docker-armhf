@@ -1,5 +1,4 @@
-#from eyjhb/alpine-base:armhf
-from baseimage-debian
+from eyjhb/debian-base-armhf:stretch
 
 # install lms
 RUN apt-get install -y wget apt-utils libio-socket-ssl-perl && \
@@ -12,13 +11,16 @@ RUN apt-get install -y wget apt-utils libio-socket-ssl-perl && \
 	wget $latest_lms && \
 	lms_deb=${latest_lms##*/} && \
 	dpkg -i $lms_deb || true && \
-	apt-get -f -y install
+	apt-get -f -y install && \
+	apt-get autoremove -y && \
+	apt-get clean -y && \
+	rm -rf /sources
 
 # copy root directories
 COPY root/ /
 
 # health checks
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
       CMD /bin/sh /healthcheck.sh
 
 # ports and volumes

@@ -14,13 +14,15 @@ RUN echo 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti' | tee 
 # install java and unifi
 RUN apt-get update && \
 	apt-get install -y -t jessie-backports openjdk-8-jdk && \
-	apt-get install -y unifi 
+	apt-get install -y unifi && \
+	apt-get autoremove -y && \
+	apt-get clean -y
 
 # copy root directories
 COPY root/ /
 
 # health checks
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
       CMD /bin/sh /healthcheck.sh
 
 # ports and volumes
